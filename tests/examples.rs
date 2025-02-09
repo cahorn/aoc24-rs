@@ -1,13 +1,28 @@
-use aoc24::day01;
+use paste::paste;
 
-const DAY01_INPUT: &str = include_str!("day01.txt");
+macro_rules! tests {
+    ($($day:ident: $input:expr, $part1:expr, $part2:expr),*) => {
+        $(
+            use aoc24::$day;
 
-#[test]
-fn day01_part1() {
-    assert_eq!(day01::part1(&DAY01_INPUT), 11)
+            paste! {
+                const [<$day:upper _INPUT>]: &str = include_str!($input);
+
+                #[test]
+                fn [<$day _part1>]() {
+                    assert_eq!($day::part1([<$day:upper _INPUT>]), $part1)
+                }
+
+                #[test]
+                fn [<$day _part2>]() {
+                    assert_eq!($day::part2([<$day:upper _INPUT>]), $part2)
+                }
+            }
+
+        )*
+    }
 }
 
-#[test]
-fn day01_part2() {
-    assert_eq!(day01::part2(&DAY01_INPUT), 31)
+tests! {
+    day01: "day01.txt", 11, 31
 }
