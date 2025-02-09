@@ -9,13 +9,13 @@ fn main() -> io::Result<()> {
     let day: usize = args
         .next()
         .expect("No day provided")
-        .parse()
-        .expect("Could not read day");
+        .parse::<usize>()
+        .expect("Could not read day") - 1;
     let part: usize = args
         .next()
         .expect("No part provided")
-        .parse()
-        .expect("Could not parse part");
+        .parse::<usize>()
+        .expect("Could not parse part") - 1;
     println!("{}", aoc24::DAYS[day][part](&input));
     Ok(())
 }
