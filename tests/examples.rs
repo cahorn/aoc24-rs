@@ -25,5 +25,6 @@ macro_rules! tests {
 
 tests! {
     day01: "day01.txt", 11, 31,
-    day02: "day02.txt", 2, 4
+    day02: "day02.txt", 2, 4,
+    day03: "day03.txt", 161, 48
 }
