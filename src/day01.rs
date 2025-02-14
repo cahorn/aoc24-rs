@@ -2,20 +2,20 @@ use regex::Regex;
 use std::collections::HashMap;
 use std::iter;
 
-fn parse(input: &str, left: &mut Vec<i32>, right: &mut Vec<i32>) {
+fn parse(input: &str) -> (Vec<i32>, Vec<i32>) {
     let re = Regex::new(r"(\d+)\s+(\d+)").unwrap();
+    let mut left = Vec::new();
+    let mut right = Vec::new();
     for (_, [l, r]) in re.captures_iter(input).map(|c| c.extract()) {
         let err = "Failed to parse i32";
         left.push(l.parse().expect(err));
         right.push(r.parse().expect(err))
     }
+    return (left, right)
 }
 
 pub fn part1(input: &str) -> i32 {
-    let mut left: Vec<i32> = Vec::new();
-    let mut right: Vec<i32> = Vec::new();
-
-    parse(input, &mut left, &mut right);
+    let (mut left, mut right) = parse(input);
     left.sort();
     right.sort();
 
@@ -27,10 +27,7 @@ pub fn part1(input: &str) -> i32 {
 }
 
 pub fn part2(input: &str) -> i32 {
-    let mut left: Vec<i32> = Vec::new();
-    let mut right: Vec<i32> = Vec::new();
-
-    parse(input, &mut left, &mut right);
+    let (left, right) = parse(input);
     let counts = occurrences(&right);
 
     let mut sum = 0;
